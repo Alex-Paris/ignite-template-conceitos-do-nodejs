@@ -106,7 +106,9 @@ app.patch('/todos/:id/done', checksExistsUserAccount, checksExistsTodo, (request
 app.delete('/todos/:id', checksExistsUserAccount, checksExistsTodo, (request, response) => {
   const { user, todo } = request;
 
-  user.todos.splice(todo, 1);
+  const todoIndex = user.todos.findIndex(p => p.id === todo.id)
+
+  user.todos.splice(todoIndex, 1);
 
   return response.status(204).send();
 });
